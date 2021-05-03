@@ -33,6 +33,7 @@
             "email": "mostafagholamidev@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "ext-soap": "*",
         "ext-curl": "*",
