@@ -1,0 +1,59 @@
+{
+    "name": "mst-ghi/larapool",
+    "description": "A Laravel library to connect all Iraninan payments gateways",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "iran",
+        "payment",
+        "gateway",
+        "port",
+        "bank",
+        "pay",
+        "mellat",
+        "saman",
+        "pasargad",
+        "parsian",
+        "sadad",
+        "meli",
+        "payline",
+        "jahanpay",
+        "zarinpal",
+        "pardakht",
+        "dargah",
+        "shaparak",
+        "poolport",
+        "ipay",
+        "pay-ir"
+    ],
+    "authors": [
+        {
+            "name": "Mostafa Gholami",
+            "email": "mostafagholamidev@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-soap": "*",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "nesbot/carbon": "*",
+        "illuminate/database": ">=5.7.17",
+        "illuminate/support": ">=5.7.17"
+    },
+    "autoload": {
+        "psr-4": {
+            "MstGhi\\Larapool\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MstGhi\\Larapool\\LarapoolServiceProvider"
+            ],
+            "aliases": {
+                "Larapool": "MstGhi\\Larapool\\Larapool"
+            }
+        }
+    }
+}
