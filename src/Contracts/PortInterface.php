@@ -72,6 +72,13 @@ interface PortInterface
     public function redirect();
 
     /**
+     * This method use for redirect to port
+     *
+     * @return string
+     */
+    public function redirectLink();
+
+    /**
      * Return result of payment
      * If result is done, return true, otherwise throws an related exception
      *

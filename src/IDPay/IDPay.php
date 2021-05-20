@@ -78,6 +78,18 @@ class IDPay extends PortAbstract implements PortInterface
 
     /**
      * {@inheritdoc}
+     */
+    public function redirectLink()
+    {
+        if ($this->config->get('larapool.idpay.sandbox')) {
+            return $this->sandboxGateUrl . $this->refId;
+        } else {
+            return $this->gateUrl . $this->refId;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
      * @throws IDPayReceiveException
      */
     public function verify($transaction)

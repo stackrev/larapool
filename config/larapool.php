@@ -34,7 +34,6 @@ return array(
         'dbname' => env('DB_DATABASE', 'forge'),
         'username' => env('DB_USERNAME', 'forge'),
         'password' => env('DB_PASSWORD', ''),
-        'create' => false // For first time you must set this to true for create tables in database
     ),
 
     //--------------------------------
