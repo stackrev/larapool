@@ -18,7 +18,7 @@ class CreateLarapoolTransactionsTable extends Migration
 
         Schema::create('larapool_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->index()->unsigned();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('transaction_able_id')->unsigned()->nullable();
             $table->string('transaction_able_type')->nullable();
             $table->unsignedTinyInteger('port_id');

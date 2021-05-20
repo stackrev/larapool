@@ -31,8 +31,7 @@ class LarapoolServiceProvider extends ServiceProvider
         //php artisan vendor:publish --provider=MstGhi\Larapool\LarapoolServiceProvider --tag=config
         $this->publishes([
             $config => config_path('gateway.php'),
-        ], 'config')
-        ;
+        ], 'config');
 
         // php artisan vendor:publish --provider=MstGhi\Larapool\LarapoolServiceProvider --tag=migrations
         $this->publishes([

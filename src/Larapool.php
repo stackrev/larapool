@@ -10,6 +10,13 @@ use MstGhi\Larapool\Exceptions\InvalidRequestException;
 use MstGhi\Larapool\Exceptions\NotFoundTransactionException;
 use MstGhi\Larapool\IDPay\IDPay;
 
+/**
+ * Class Larapool
+ *
+ * @package MstGhi\Larapool
+ * @author Mostafa Gholami
+ *
+ */
 class Larapool
 {
     const P_MELLAT = 1;
@@ -30,16 +37,18 @@ class Larapool
     const P_IDPAY = 16;
     const P_PAYPING = 17;
 
+    const PLATFORM_WEB = 'web';
+    const PLATFORM_MOBILE = 'mobile';
+
     public $config;
     protected $request;
     protected $portClass;
 
     /**
-     * @param string|null $port
-     * @param string|null $config
+     * @param int $port
      * @throws PortNotFoundException
      */
-    public function __construct(string $port = null, string $config = null)
+    public function __construct(int $port)
     {
         $this->config = app('config');
         $this->request = app('request');
