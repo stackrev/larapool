@@ -101,7 +101,6 @@ $order->transactions()->create([
 > Received the relevant link and connected to the bank portal in other ways using the **redirectLink()** <br>
 >> The choice of redirect method to the bank depends on your project
 ```php
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use MstGhi\Larapool\LarapoolTransaction;
@@ -109,7 +108,7 @@ use MstGhi\Larapool\Larapool;
 use MstGhi\Larapool\IDPay\IDPay;
 use MstGhi\Larapool\Exceptions\NotFoundTransactionException;
 
-public function redirect(Request $request, $resId)
+public function redirect($resId)
 {
     $exception = null;
     
@@ -126,7 +125,7 @@ public function redirect(Request $request, $resId)
         
         try {
         
-            $refId = $larapool->set(1000)->ready()->refId();
+            $refId = $larapool->setTransaction($transaction)->ready()->refId();
             // any operation on $refId here ...
         
             /**
@@ -164,3 +163,57 @@ public function redirect(Request $request, $resId)
 ```
 
 ---
+
+### Callback from bank
+
+```php
+use Illuminate\Support\Facades\Log;
+use MstGhi\Larapool\Exceptions\NotFoundTransactionException;
+use MstGhi\Larapool\LarapoolTransaction;
+use MstGhi\Larapool\Larapool;
+use MstGhi\Larapool\IDPay\IDPay;
+use Carbon\Carbon;
+
+public function callback(LarapoolTransaction $transaction, $resId)
+    {
+        if (($transaction && !$resId) || ($transaction && $transaction->res_id != $resId)) {
+            throw new NotFoundTransactionException();
+        }
+        
+        // load transactionable, this is use as orderId
+        $transaction->load(['transactionable']);
+
+        try {
+             /** @var IDPay $larapool */
+             $larapool = new Larapool(Larapool::P_IDPAY);
+
+            /** verify transaction [bank] */
+            $larapool->setOrderId($transaction->transactionable->id)->verify($transaction);
+
+            $trackingCode = $larapool->trackingCode();
+            $cardNumber = $larapool->cardNumber();
+
+            $transaction->update([
+                'tracking_code' => $trackingCode,
+                'card_number' => $cardNumber,
+                'status' => LarapoolTransaction::TRANSACTION_SUCCEED,
+                'payment_date' => strtotime(Carbon::now()),
+                'last_change_date' => strtotime(Carbon::now()),
+            ]);
+            
+            // any operation after success payment here ...
+            
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            Log::critical("Error in verifying payment: $message #transactionId: {$transaction->id}");
+           
+            $transaction->update([
+                'status' => LarapoolTransaction::TRANSACTION_FAILED,
+                'last_change_date' => strtotime(Carbon::now()),
+            ]);
+            
+            // any operation after failed payment here ...
+        }
+    }
+
+```

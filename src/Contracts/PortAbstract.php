@@ -372,12 +372,13 @@ abstract class PortAbstract
     }
 
     /**
-     * @param null $transaction
+     * @param LarapoolTransaction $transaction
      * @return PortAbstract
      */
-    public function setTransaction($transaction)
+    public function setTransaction(LarapoolTransaction $transaction)
     {
         $this->transaction = $transaction;
+        $this->amount = $transaction->price;
         return $this;
     }
 

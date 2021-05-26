@@ -36,6 +36,11 @@ class IDPay extends PortAbstract implements PortInterface
     protected $sandboxGateUrl = 'https://idpay.ir/p/ws-sandbox/';
 
     /**
+     * @var null|string
+     */
+    protected $orderId = null;
+
+    /**
      * {@inheritdoc}
      */
     public function __construct($config, $request, int $portId)
@@ -120,7 +125,7 @@ class IDPay extends PortAbstract implements PortInterface
         );
 
         $fields = array(
-            'order_id' => $this->transactionId,
+            'order_id' => $this->orderId,
             'amount' => $this->amount,
             'name' => $this->config->get('larapool.idpay.name'),
             'phone' => $this->config->get('larapool.idpay.user-mobile'),
@@ -190,7 +195,7 @@ class IDPay extends PortAbstract implements PortInterface
     {
         $fields = array(
             'id' => $this->trackingCode,
-            'order_id' => $this->transactionId
+            'order_id' => $this->orderId
         );
 
         $ch = curl_init();
@@ -220,5 +225,11 @@ class IDPay extends PortAbstract implements PortInterface
         $this->transactionFailed();
         $this->newLog($response['status'], IDPayReceiveException::$errors[$response['status']]);
         throw new IDPayReceiveException($response['status']);
+    }
+
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+        return $this;
     }
 }
