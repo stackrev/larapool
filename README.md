@@ -46,8 +46,10 @@ composer require mst-ghi/larapool
 ##### Step 3 : Publishing required files
 
 ```php
-php artisan vendor:publish --provider=MstGhi\Larapool\LarapoolServiceProvider 
+php artisan vendor:publish 
 ```
+Choice and enter number of **MstGhi\Larapool\LarapoolServiceProvider** to publish resource files.
+Published files include config and migration files
 
 ##### Step 4 : Create transaction tables
 
