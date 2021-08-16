@@ -70,23 +70,8 @@ class Larapool
     public function getSupportedPorts()
     {
         return array(
-            self::P_MELLAT,
-            self::P_SADAD,
-            self::P_ZARINPAL,
-            self::P_PAYLINE,
-            self::P_JAHANPAY,
-            self::P_PARSIAN,
-            self::P_PASARGAD,
-            self::P_SADERAT,
-            self::P_IRANKISH,
-            self::P_SIMULATOR,
-            self::P_SAMAN,
-            self::P_PAY,
-            self::P_JIBIT,
-            self::P_AP,
-            self::P_BITPAY,
             self::P_IDPAY,
-            self::P_PAYPING
+            self::P_MELLAT,
         );
     }
 
@@ -185,6 +170,10 @@ class Larapool
         switch ($port) {
             case self::P_IDPAY:
                 $this->portClass = new IDPay($this->config, $this->request, self::P_IDPAY);
+                break;
+
+            case self::P_MELLAT:
+                $this->portClass = new IDPay($this->config, $this->request, self::P_MELLAT);
                 break;
 
             default:

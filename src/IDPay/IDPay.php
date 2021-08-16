@@ -65,7 +65,6 @@ class IDPay extends PortAbstract implements PortInterface
     public function ready()
     {
         $this->sendPayRequest();
-
         return $this;
     }
 
@@ -102,7 +101,6 @@ class IDPay extends PortAbstract implements PortInterface
         parent::verify($transaction);
 
         $this->userPayment();
-
         $this->verifyPayment();
 
         return $this;
@@ -216,7 +214,6 @@ class IDPay extends PortAbstract implements PortInterface
         curl_close($ch);
 
         if (isset($response['status']) && $response['status'] == 100 && $response['amount'] == $this->amount) {
-
             $this->transactionSucceed();
             $this->newLog($response['status'], self::TRANSACTION_SUCCEED_TEXT);
             return true;
