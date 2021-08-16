@@ -9,6 +9,7 @@ use MstGhi\Larapool\Exceptions\PortNotFoundException;
 use MstGhi\Larapool\Exceptions\InvalidRequestException;
 use MstGhi\Larapool\Exceptions\NotFoundTransactionException;
 use MstGhi\Larapool\IDPay\IDPay;
+use MstGhi\Larapool\Mellat\Mellat;
 
 /**
  * Class Larapool
@@ -173,7 +174,7 @@ class Larapool
                 break;
 
             case self::P_MELLAT:
-                $this->portClass = new IDPay($this->config, $this->request, self::P_MELLAT);
+                $this->portClass = new Mellat($this->config, $this->request, self::P_MELLAT);
                 break;
 
             default:
