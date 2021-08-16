@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 
 class LarapoolServiceProvider extends ServiceProvider
 {
+    protected $defer = false;
+
     /**
      * Register any application services.
      *
@@ -23,19 +25,19 @@ class LarapoolServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $migrations = __DIR__ . '/../migrations/';
+        $migrations = __DIR__ . '/../database/migrations/create_larapool_transactions_table.php';
         $config = __DIR__ . '/../config/larapool.php';
 
         $this->loadMigrationsFrom($migrations);
 
-        //php artisan vendor:publish --provider=MstGhi\Larapool\LarapoolServiceProvider --tag=config
         $this->publishes([
-            $config => config_path('gateway.php'),
-        ], 'config');
+            $config => config_path('larapool.php'),
+        ]);
 
-        // php artisan vendor:publish --provider=MstGhi\Larapool\LarapoolServiceProvider --tag=migrations
         $this->publishes([
-            $migrations => base_path('database/migrations')
-        ], 'migrations');
+            $migrations => database_path(
+                'migrations/' . date('Y_m_d_His', time()) . '_create_larapool_transactions_table.php'
+            )
+        ]);
     }
 }

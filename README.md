@@ -1,6 +1,6 @@
 ## Larapool
 
-### A **Laravel** package to connect all Iraninan payments gateways
+### A **Laravel(+7)** package to connect all Iraninan payments gateways
 
 ---
 
