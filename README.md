@@ -1,13 +1,13 @@
 ## Larapool
 
-### A **Laravel(+7)** package to connect all Iraninan payments gateways
+### A **Laravel (+7)** package to connect all Iraninan payments gateways
 
 ---
 
 ### **Active ports** :
 
 - [x] IDPay
-- [ ] Mellat
+- [x] Mellat
 - [ ] Sadad
 - [ ] Zarinpal
 - [ ] Payline
